@@ -16,7 +16,4 @@ public interface ProvinceService {
 
     void deleteProvinceById(Long idProvince);
 
-    
-
-    
 }

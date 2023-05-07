@@ -2,6 +2,8 @@ package com.asystresources.erp.comptabilite.feature.analytic.cityzenid.controlle
 
 import java.util.List;
 
+import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.exceptions.VilleNotFoundException;
+import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.service.ProvinceService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,25 +23,31 @@ import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.service.Vi
 public class VilleController {
     
     private VilleService villeService;
+    private ProvinceService provinceService;
 
-    public VilleController(VilleService villeService){
+    public VilleController(VilleService villeService, ProvinceService provinceService){
         this.villeService = villeService;
+        this.provinceService = provinceService;
     }
 
     @PostMapping("/save")
-    public VilleDTO saveVille(@RequestBody VilleDTO villeDTO, @RequestParam(name = "province") Long provinceId) throws ProvinceNotFoundException {
-        
-        return villeService.saveVille(villeDTO, provinceId);
+    public VilleDTO saveVille(@RequestBody Ville ville, @RequestParam(name = "provinceId") Long provinceId) throws ProvinceNotFoundException {
+
+        return villeService.saveVille(ville, provinceId);
     }
 
     @GetMapping("/{id}")
-    public Ville getVilleById(@PathVariable Long id) {
+    public VilleDTO getVilleById(@PathVariable Long id) throws VilleNotFoundException {
         return villeService.getVilleById(id);
     }
 
     @GetMapping
-    public List<Ville> getAllVilles() {
+    public List<VilleDTO> getAllVilles() {
         return villeService.getAllVilles();
+    }
+
+    public List<VilleDTO> getVilleByProvinces(Long provinceId) throws ProvinceNotFoundException {
+        return villeService.getVilleByProvinces(provinceId);
     }
 
     @DeleteMapping("/{id}")

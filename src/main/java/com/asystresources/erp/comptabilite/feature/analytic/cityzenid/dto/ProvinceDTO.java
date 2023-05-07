@@ -6,16 +6,6 @@ public class ProvinceDTO {
     private String designation;
     private String codeProvince;
 
-    public ProvinceDTO(){
-        
-    }
-
-    public ProvinceDTO(Long id, String designation, String codeProvince) {
-        this.id = id;
-        this.designation = designation;
-        this.codeProvince = codeProvince;
-    }
-
     public Long getId() {
         return this.id;
     }

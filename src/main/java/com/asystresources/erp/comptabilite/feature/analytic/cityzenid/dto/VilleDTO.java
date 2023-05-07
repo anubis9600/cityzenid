@@ -9,16 +9,6 @@ public class VilleDTO {
     private String codeVille;
     private ProvinceDTO provinceDTO;
 
-    public VilleDTO() {
-    }
-
-    public VilleDTO(Long id, String designation, String codeVille, ProvinceDTO provinceDTO) {
-        this.id = id;
-        this.designation = designation;
-        this.codeVille = codeVille;
-        this.provinceDTO = provinceDTO;
-    }
-
     public Long getId() {
         return this.id;
     }
@@ -57,7 +47,7 @@ public class VilleDTO {
             " id='" + getId() + "'" +
             ", designation='" + getDesignation() + "'" +
             ", codeVille='" + getCodeVille() + "'" +
-            ", provinceDTO='" + getProvinceDTO() + "'" +
+            ", provinceId='" + getProvinceDTO() + "'" +
             "}";
     }
 

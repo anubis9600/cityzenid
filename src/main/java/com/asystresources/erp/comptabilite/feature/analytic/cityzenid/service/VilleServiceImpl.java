@@ -1,7 +1,11 @@
 package com.asystresources.erp.comptabilite.feature.analytic.cityzenid.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.exceptions.VilleNotFoundException;
+import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.repository.ProvinceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.dto.ProvinceDTO;
@@ -17,6 +21,9 @@ import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.repository
 public class VilleServiceImpl implements VilleService {
 
     private VilleRepository villeRepository;
+
+    @Autowired
+    private ProvinceRepository provinceRepository;
 
     private ProvinceService provinceService;
 
@@ -35,26 +42,38 @@ public class VilleServiceImpl implements VilleService {
     }
 
     @Override
-    public VilleDTO saveVille(VilleDTO villeDTO, Long provinceId) throws ProvinceNotFoundException {
+    public VilleDTO saveVille(Ville ville, Long provinceId) throws ProvinceNotFoundException {
+        Province province = provinceRepository.findById(provinceId).orElseThrow(() -> new ProvinceNotFoundException("Ce province n'existe pas"));
 
-        ProvinceDTO provinceDTO = provinceService.getProvinceById(provinceId);
-        Province province = dtoProvinceMapper.fromProvinceDTO(provinceDTO);
+        ville.setProvince(province);
 
-        Ville ville = dtoVilleMapperImpl.fromVilleDTO(villeDTO);
-        villeDTO.setProvinceDTO(dtoProvinceMapper.fromProvince(province));
         Ville savedVille = villeRepository.save(ville);
-        
-        return dtoVilleMapperImpl.fromVille(savedVille);
+
+        return  dtoVilleMapperImpl.fromVille(savedVille);
     }
 
     @Override
-    public Ville getVilleById(Long id) {
-        return villeRepository.findById(id).orElse(null);
+    public VilleDTO getVilleById(Long id) throws VilleNotFoundException {
+        Ville ville = villeRepository.findById(id).orElseThrow(()-> new VilleNotFoundException("La ville est introuvable"));
+        VilleDTO villeDTO = dtoVilleMapperImpl.fromVille(ville);
+
+        return villeDTO;
     }
 
     @Override
-    public List<Ville> getAllVilles() {
-        return villeRepository.findAll();
+    public List<VilleDTO> getAllVilles() {
+        List<Ville> villes = villeRepository.findAll();
+        List<VilleDTO> villeDTOList = villes.stream().map(vDTO -> dtoVilleMapperImpl.fromVille(vDTO))
+                .collect(Collectors.toList());
+
+        return villeDTOList;
+    }
+
+    @Override
+    public List<VilleDTO> getVilleByProvinces(Long provinceId) throws ProvinceNotFoundException {
+        ProvinceDTO provinceDTO = provinceService.getProvinceById(provinceId);
+
+        return null;
     }
 
     @Override
@@ -63,6 +82,4 @@ public class VilleServiceImpl implements VilleService {
     }
 
 
-
-    
 }
