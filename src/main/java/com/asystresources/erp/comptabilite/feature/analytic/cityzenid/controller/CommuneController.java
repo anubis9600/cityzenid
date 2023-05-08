@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.exceptions.VilleNotFoundException;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.service.CommuneService;
-import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.service.ProvinceService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,23 +14,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.dto.CommuneDTO;
-import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.dto.VilleDTO;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.entity.Commune;
-import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.entity.Ville;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.exceptions.CommuneNotFoundException;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.exceptions.ProvinceNotFoundException;
-import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.service.VilleService;
 
 @RestController
 @RequestMapping("/communes")
 public class CommuneController {
     
     private CommuneService communeService;
-    private VilleService villeService;
 
-    public CommuneController(CommuneService communeService, VilleService villeService){
+    public CommuneController(CommuneService communeService){
         this.communeService = communeService;
-        this.villeService = villeService;
     }
 
     @PostMapping("/save")
