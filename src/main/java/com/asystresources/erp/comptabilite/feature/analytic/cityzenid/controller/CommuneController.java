@@ -3,6 +3,7 @@ package com.asystresources.erp.comptabilite.feature.analytic.cityzenid.controlle
 import java.util.List;
 
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.exceptions.VilleNotFoundException;
+import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.service.CommuneService;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.service.ProvinceService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,42 +14,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.dto.CommuneDTO;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.dto.VilleDTO;
+import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.entity.Commune;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.entity.Ville;
+import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.exceptions.CommuneNotFoundException;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.exceptions.ProvinceNotFoundException;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.service.VilleService;
 
 @RestController
-@RequestMapping("/villes")
-public class VilleController {
+@RequestMapping("/communes")
+public class CommuneController {
     
+    private CommuneService communeService;
     private VilleService villeService;
-    private ProvinceService provinceService;
 
-    public VilleController(VilleService villeService, ProvinceService provinceService){
+    public CommuneController(CommuneService communeService, VilleService villeService){
+        this.communeService = communeService;
         this.villeService = villeService;
-        this.provinceService = provinceService;
     }
 
     @PostMapping("/save")
-    public VilleDTO saveVille(@RequestBody Ville ville, @RequestParam(name = "provinceId") Long provinceId) throws ProvinceNotFoundException {
+    public CommuneDTO saveCommune(@RequestBody Commune commune, @RequestParam(name = "villeId") Long villeId) throws ProvinceNotFoundException, VilleNotFoundException {
 
-        return villeService.saveVille(ville, provinceId);
+        return communeService.saveCommune(commune, villeId);
     }
 
     @GetMapping("/{id}")
-    public VilleDTO getVilleById(@PathVariable Long id) throws VilleNotFoundException {
-        return villeService.getVilleById(id);
+    public CommuneDTO getCommuneById(@PathVariable Long id) throws VilleNotFoundException, CommuneNotFoundException {
+        return communeService.getCommuneById(id);
     }
 
     @GetMapping
-    public List<VilleDTO> getAllVilles() {
-        return villeService.getAllVilles();
+    public List<CommuneDTO> getAllCommunes() {
+        return communeService.getAllCommunes();
     }
 
     @DeleteMapping("/{id}")
-    public void deleteVilleById(@PathVariable Long id) {
-        villeService.deleteVilleById(id);
+    public void deleteCommundeById(@PathVariable Long id) throws CommuneNotFoundException {
+        communeService.deleteCommuneById(id);
     }
 
 }

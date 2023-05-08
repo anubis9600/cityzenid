@@ -8,12 +8,10 @@ import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.repository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.dto.ProvinceDTO;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.dto.VilleDTO;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.entity.Province;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.entity.Ville;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.exceptions.ProvinceNotFoundException;
-import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.mappers.ProvinceMapperImpl;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.mappers.VilleMapperImpl;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.repository.VilleRepository;
 
@@ -24,21 +22,12 @@ public class VilleServiceImpl implements VilleService {
 
     @Autowired
     private ProvinceRepository provinceRepository;
-
-    private ProvinceService provinceService;
-
     private VilleMapperImpl dtoVilleMapperImpl;
 
-    private ProvinceMapperImpl dtoProvinceMapper;
-
-    public VilleServiceImpl(ProvinceService provinceService,
-                            VilleRepository villeRepository,
-                            VilleMapperImpl dtoVilleMapperImpl,
-                            ProvinceMapperImpl dtoProvinceMapper){
-        this.provinceService = provinceService;
+    public VilleServiceImpl(VilleRepository villeRepository,
+                            VilleMapperImpl dtoVilleMapperImpl){
         this.villeRepository = villeRepository;
         this.dtoVilleMapperImpl = dtoVilleMapperImpl;
-        this.dtoProvinceMapper = dtoProvinceMapper;
     }
 
     @Override
@@ -67,13 +56,6 @@ public class VilleServiceImpl implements VilleService {
                 .collect(Collectors.toList());
 
         return villeDTOList;
-    }
-
-    @Override
-    public List<VilleDTO> getVilleByProvinces(Long provinceId) throws ProvinceNotFoundException {
-        ProvinceDTO provinceDTO = provinceService.getProvinceById(provinceId);
-
-        return null;
     }
 
     @Override

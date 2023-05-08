@@ -15,7 +15,7 @@ public interface VilleService {
 
     List<VilleDTO> getAllVilles();
 
-    List<VilleDTO> getVilleByProvinces(Long provinceId) throws ProvinceNotFoundException;
+    // List<VilleDTO> getVilleByProvinces(Long provinceId) throws ProvinceNotFoundException;
 
     void deleteVilleById(Long idVille);
     

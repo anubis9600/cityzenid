@@ -15,7 +15,7 @@ public class Commune {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String designation;
-    private String codeVille;
+    private String codeCommune;
     @ManyToOne
     private Ville ville;
     @OneToMany(mappedBy = "commune")
@@ -24,10 +24,10 @@ public class Commune {
     public Commune() {
     }
 
-    public Commune(Long id, String designation, String codeVille, Ville ville, List<Quartier> quartiers) {
+    public Commune(Long id, String designation, String codeCommune, Ville ville, List<Quartier> quartiers) {
         this.id = id;
         this.designation = designation;
-        this.codeVille = codeVille;
+        this.codeCommune = codeCommune;
         this.ville = ville;
         this.quartiers = quartiers;
     }
@@ -48,12 +48,12 @@ public class Commune {
         this.designation = designation;
     }
 
-    public String getCodeVille() {
-        return this.codeVille;
+    public String getCodeCommune() {
+        return this.codeCommune;
     }
 
-    public void setCodeVille(String codeVille) {
-        this.codeVille = codeVille;
+    public void setCodeCommune(String codeVille) {
+        this.codeCommune = codeVille;
     }
 
     public Ville getVille() {
@@ -77,7 +77,7 @@ public class Commune {
         return "{" +
             " id='" + getId() + "'" +
             ", designation='" + getDesignation() + "'" +
-            ", codeVille='" + getCodeVille() + "'" +
+            ", codeVille='" + getCodeCommune() + "'" +
             ", ville='" + getVille() + "'" +
             ", quartiers='" + getQuartiers() + "'" +
             "}";

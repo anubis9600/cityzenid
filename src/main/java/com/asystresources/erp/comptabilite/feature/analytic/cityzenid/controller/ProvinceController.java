@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.dto.ProvinceDTO;
-import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.entity.Province;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.exceptions.ProvinceNotFoundException;
 import com.asystresources.erp.comptabilite.feature.analytic.cityzenid.service.ProvinceService;
 
