@@ -39,7 +39,7 @@ public class QuartierController {
         return quartierService.getQuartierById(quartierId);
     }
 
-    @GetMapping
+    @GetMapping                            
     public List<QuartierDTO> getAllQuartier(){
         return quartierService.getAllQuartier();
     }
